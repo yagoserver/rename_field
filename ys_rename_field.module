@@ -2,11 +2,11 @@
 
 function ys_rename_field_menu() {
   $items['admin/change_field'] = array(
-    'page callback' => 'gp_rename_field',
-    'page arguments' => array('gigplanning_admin_settings'),
+    'page callback' => 'ys_rename_field',
     'access arguments' => array('administer site configuration'),
     'type' => MENU_CALLBACK,
   );
+  return $items;
 }
 
 /**
@@ -22,7 +22,8 @@ function ys_rename_field_menu() {
 *   copied.
 */
 
-function gp_rename_field($old_field_name, $new_field_name, $drop_first = FALSE) {
+function ys_rename_field($old_field_name, $new_field_name, $drop_first = FALSE) {
+  //echo($old_field_name . ' | ' . $new_field_name);exit();
   // Read field data.
   $old_field = field_read_field($old_field_name);
   // Update {field_config}.
@@ -64,4 +65,5 @@ function gp_rename_field($old_field_name, $new_field_name, $drop_first = FALSE) 
     // Rename the table.
     db_rename_table($old_table, $new_table);
   }
+  drupal_goto('home');
 }
